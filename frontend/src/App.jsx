@@ -1,4 +1,5 @@
 import "./index.css";
+import MarpitPPT from "./components/MarpitPPT";
 
 function App() {
     return (
@@ -72,7 +73,7 @@ function App() {
                     </div>
 
                     <div id="ppt-wrapper" className="flex-1 border border-gray-300 rounded-lg p-4">
-                        나야
+                        <MarpitPPT/>
                     </div>
                 </div>
             </div>
