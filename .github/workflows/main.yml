@@ -19,10 +19,14 @@ jobs:
         node-version: '18'
         
     - name: Install dependencies
-      run: npm install
+      run: |
+        cd frontend
+        npm install
 
     - name: Build React app
-      run: CI=false npm run build
+      run: |
+        cd frontend
+        CI=false npm run build
 
     - name: Deploy to S3
       env:
@@ -31,5 +35,6 @@ jobs:
         AWS_REGION: ap-northeast-2
         S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
       run: |
+        cd frontend
         aws s3 sync build/ s3://$S3_BUCKET_NAME --delete
         aws s3 cp build/index.html s3://$S3_BUCKET_NAME/index.html --cache-control no-store
