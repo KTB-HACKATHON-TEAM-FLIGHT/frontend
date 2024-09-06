@@ -97,7 +97,7 @@ function App() {
                 className="h-8"
                 alt="Flowbite Logo"
               />
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+              <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
                 ChatPPT
               </span>
             </a>
@@ -118,32 +118,33 @@ function App() {
           <hr className="my-4 border-gray-700" />
 
           <ul className="flex flex-col space-y-2">
+
             <li>
               <a
-                href="#"
-                className="block px-4 py-2 text-white hover:bg-gray-800 rounded-md"
-              >
-                새 페이지
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block px-4 py-2 text-white bg-blue-600 rounded-md"
+                  href="#"
+                  className="block px-4 py-2 text-white bg-blue-600 rounded-md"
               >
                 페이지1
               </a>
             </li>
+            <li>
+              <a
+                  href="#"
+                  className="block px-4 py-2 text-white hover:bg-gray-800 rounded-md"
+              >
+                새 페이지
+              </a>
+            </li>
           </ul>
-          <hr className="my-4 border-gray-700" />
+          <hr className="my-4 border-gray-700"/>
         </div>
 
         <div
-          id="page-content-wrapper"
-          className="p-7 flex flex-auto w-80 gap-[1vw]"
+            id="page-content-wrapper"
+            className="p-7 flex flex-auto w-80 gap-[1vw]"
         >
           <div
-            id="chatting-wrapper"
+              id="chatting-wrapper"
             className="flex-auto w-1/3 border border-gray-300 rounded-lg p-4 flex flex-col h-full"
           >
             <div className="flex-1 overflow-y-auto p-2 space-y-4">
