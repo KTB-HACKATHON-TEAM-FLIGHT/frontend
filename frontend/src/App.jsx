@@ -3,10 +3,12 @@ import { SessionManager } from "./api/SessionManager";
 import { sendFirstRequest, sendNextRequest } from "./api/ApiManager";
 import UserChat from "./components/UserChat";
 import BotChat from "./components/BotChat";
+import ListItem from "./components/ListItem";
+import Item from "./components/Item";
+import NewItem from "./components/NewItem";
 import MarpitPPT from "./components/MarpitPPT";
-import Button from "./components/Button";
 import html2pdf from "html2pdf.js";
-
+import Button from "./components/Button";
 import "./index.css";
 
 function App() {
@@ -118,24 +120,13 @@ function App() {
           <hr className="my-4 border-gray-700" />
 
           <ul className="flex flex-col space-y-2">
-            <li>
-              <a
-                href="#"
-                className="block px-4 py-2 text-white hover:bg-gray-800 rounded-md"
-              >
-                새 페이지
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block px-4 py-2 text-white bg-blue-600 rounded-md"
-              >
-                페이지1
-              </a>
-            </li>
+            <NewItem></NewItem>
+            <hr className="my-4 border-gray-700" />
+            //TODO: Item 컴포넌트들 map 시키기. postId로 해야할듯?
+            <ListItem>
+              <Item></Item>
+            </ListItem>
           </ul>
-          <hr className="my-4 border-gray-700" />
         </div>
 
         <div
