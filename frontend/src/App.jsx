@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { SessionManager } from "./api/SessionManager";
-import { sendFirstRequest, sendNextRequest } from "./api/ApiManager";
+import { sendFirstRequest, sendNextRequest } from "./api/PPTManager";
 import PdfDownload from "./api/PdfDownload";
 import UserChat from "./components/UserChat";
 import BotChat from "./components/BotChat";
@@ -40,7 +40,7 @@ function App() {
 
   // 메시지 전송 및 API 호출
   const handleSendMessage = async () => {
-    if (!sessionId || !chatInput.trim()) return; // 세션 ID 또는 입력 없을 때 실행 안하고
+    if (!sessionId || !chatInput.trim()) return; // 세션 ID 또는 입력 없을 때 실행 안함
 
     try {
       let response;
