@@ -122,7 +122,6 @@ function App() {
           <ul className="flex flex-col space-y-2">
             <NewItem></NewItem>
             <hr className="my-4 border-gray-700" />
-            //TODO: Item 컴포넌트들 map 시키기. postId로 해야할듯?
             <ListItem>
               <Item></Item>
             </ListItem>
