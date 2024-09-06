@@ -1,17 +1,15 @@
 import axios from "axios";
 
-//처음 대화 요청시 postId 없이 요청하고, postId를 응답받아 세션스토리지에 저장
-import axios from "axios";
-
 // 처음 대화 요청시 postId 없이 요청하고, postId를 응답받아 세션스토리지에 저장
 export const sendFirstRequest = async (sessionId, request) => {
     try {
         const response = await axios.post(
-            `${process.env.REACT_APP_API_URL}/api/posts`,
-            {
-                sessionId,
-                request,
-            }
+          `${process.env.REACT_APP_API_URL}/api/posts`,
+          {
+              sessionId,
+              postId:null,
+              request,
+          }
         );
 
         const { postId, results } = response.data;
