@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { SessionManager } from "./api/SessionManager";
-import { sendFirstRequest, sendNextRequest } from "./api/ApiManager";
+import { sendFirstRequest, sendNextRequest } from "./api/PPTManager";
+import PdfDownload from "./api/PdfDownload";
 import UserChat from "./components/UserChat";
 import BotChat from "./components/BotChat";
 import MarpitPPT from "./components/MarpitPPT";
 import Button from "./components/Button";
-import html2pdf from "html2pdf.js";
 
 import "./index.css";
 
@@ -40,7 +40,7 @@ function App() {
 
   // 메시지 전송 및 API 호출
   const handleSendMessage = async () => {
-    if (!sessionId || !chatInput.trim()) return; // 세션 ID 또는 입력 없을 때 실행 안하고
+    if (!sessionId || !chatInput.trim()) return; // 세션 ID 또는 입력 없을 때 실행 안함
 
     try {
       let response;
@@ -68,21 +68,6 @@ function App() {
     setChatInput(""); // 입력 필드 초기화
   };
 
-  const handleDownloadPdf = () => {
-    const element = contentRef.current; // 변환할 HTML 요소 선택
-    console.log(element);
-    alert("하이");
-    html2pdf()
-      .from(element) // PDF로 변환할 요소
-      .set({
-        margin: 1, // 페이지 여백
-        filename: "document.pdf", // 저장할 파일 이름
-        html2canvas: { scale: 2 }, // 캔버스 스케일 설정 (높을수록 품질 향상)
-        jsPDF: { orientation: "portrait" }, // PDF 페이지 방향 설정
-      })
-      .save(); // PDF 저장
-  };
-
   return (
     <div className="App">
       <header>
@@ -92,11 +77,7 @@ function App() {
               href="/"
               className="flex items-center space-x-3 rtl:space-x-reverse"
             >
-              <img
-                src="https://flowbite.com/docs/images/logo.svg"
-                className="h-8"
-                alt="Flowbite Logo"
-              />
+              <img src="chatppt_logo.svg" className="h-8" alt="ChatPPT Logo" />
               <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
                 ChatPPT
               </span>
@@ -118,33 +99,32 @@ function App() {
           <hr className="my-4 border-gray-700" />
 
           <ul className="flex flex-col space-y-2">
-
             <li>
               <a
-                  href="#"
-                  className="block px-4 py-2 text-white bg-blue-600 rounded-md"
-              >
-                페이지1
-              </a>
-            </li>
-            <li>
-              <a
-                  href="#"
-                  className="block px-4 py-2 text-white hover:bg-gray-800 rounded-md"
+                href="#"
+                className="block px-4 py-2 text-white hover:bg-gray-800 rounded-md"
               >
                 새 페이지
               </a>
             </li>
+            <li>
+              <a
+                href="#"
+                className="block px-4 py-2 text-white bg-blue-600 rounded-md"
+              >
+                페이지1
+              </a>
+            </li>
           </ul>
-          <hr className="my-4 border-gray-700"/>
+          <hr className="my-4 border-gray-700" />
         </div>
 
         <div
-            id="page-content-wrapper"
-            className="p-7 flex flex-auto w-80 gap-[1vw]"
+          id="page-content-wrapper"
+          className="p-7 flex flex-auto w-80 gap-[1vw]"
         >
           <div
-              id="chatting-wrapper"
+            id="chatting-wrapper"
             className="flex-auto w-1/3 border border-gray-300 rounded-lg p-4 flex flex-col h-full"
           >
             <div className="flex-1 overflow-y-auto p-2 space-y-4">
@@ -165,7 +145,7 @@ function App() {
                 className="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-blue-500"
               />
               <Button text={"전송"} onClick={handleSendMessage} />
-              <Button text={"pdf변환"} onClick={handleDownloadPdf} />
+              <PdfDownload contentHtml={result} contentRef={contentRef} />
             </div>
           </div>
 
