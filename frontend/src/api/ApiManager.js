@@ -4,12 +4,12 @@ import axios from "axios";
 export const sendFirstRequest = async (sessionId, request) => {
     try {
         const response = await axios.post(
-          `${process.env.REACT_APP_API_URL}/api/posts`,
-          {
-              sessionId,
-              postId:null,
-              request,
-          }
+            `https://api.chatppt.site/api/posts`,
+            {
+                sessionId,
+                postId:null,
+                request,
+            }
         );
 
         const { postId, results } = response.data;
@@ -33,7 +33,7 @@ export const sendNextRequest = async (sessionId, request) => {
 
     try {
         const response = await axios.post(
-            `${process.env.REACT_APP_API_URL}/api/posts`,
+            `https://api.chatppt.site/api/posts`,
             {
                 sessionId,
                 postId,
