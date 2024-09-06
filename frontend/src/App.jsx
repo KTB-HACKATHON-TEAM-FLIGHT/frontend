@@ -9,12 +9,36 @@ import Button from "./components/Button";
 
 import "./index.css";
 
+
+
+
 function App() {
+  const defaultText = "<section>\n" +
+      "    <h1>ChatPPT 사용 설명서</h1>\n" +
+      "    <p>이 웹사이트는 인공지능 언어 모델(LLM)을 사용하여 사용자가 원하는 프레젠테이션을 채팅을 통해 생성하고, 바로 화면에 띄워주는 기능을 제공합니다. 아래 설명을 통해 쉽게 사이트를 사용할 수 있습니다.</p>\n" +
+      "</section>\n" +
+      "\n" +
+      "<section>\n" +
+      "    <h1>사용 팁</h1>\n" +
+      "    <ul>\n" +
+      "        <li>명확하고 간결한 요청을 입력하면 더 나은 결과를 얻을 수 있습니다.</li>\n" +
+      "        <li>각 슬라이드의 제목과 내용을 간단히 요약하여 요청하면 AI가 이해하기 쉽습니다.</li>\n" +
+      "        <li>PPT가 생성된 후 추가 수정이 필요할 경우, 원하는 변경 사항을 다시 요청할 수 있습니다.</li>\n" +
+      "    </ul>\n" +
+      "</section>\n" +
+      "\n" +
+      "<section>\n" +
+      "    <h1>주의사항</h1>\n" +
+      "    <p>이 사이트는 인공지능을 기반으로 하기 때문에 요청한 내용에 따라 생성된 PPT의 품질이 달라질 수 있습니다. 항상 생성된 PPT를 검토하고 필요에 따라 수정하는 것을 권장합니다.</p>\n" +
+      "</section>\n" +
+      "\n" +
+      "</section>"
+
   const [sessionId, setSessionId] = useState(null);
   const [chatInput, setChatInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [conversationStarted, setConversationStarted] = useState(false);
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState(defaultText);
   const [loading, setLoading] = useState(false); // 로딩 상태 추가
 
   const contentRef = useRef(); // 변환할 콘텐츠에 대한 참조
@@ -25,7 +49,7 @@ function App() {
     section {
       background-color: #123;
       color: #fff;
-      font-size: 2rem;
+      font-size: 1.5rem;
       padding: 2%;
       width: 100%;
       aspect-ratio: 16 / 9;
