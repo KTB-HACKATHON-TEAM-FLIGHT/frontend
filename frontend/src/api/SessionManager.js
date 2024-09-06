@@ -11,7 +11,7 @@ export const SessionManager = ({ onSessionIdReceived }) => {
         // 로컬스토리지에 sessionId 없을 때만 api요청하자
         if (!storedSessionId) {
             axios
-            .post(`${process.env.REACT_APP_API_URL}/api/posts`)
+            .post(`https://api.chatppt.site/api/users/session`)
             .then((response) => {
                 const newSessionId = response.data.sessionId;
                 localStorage.setItem("sessionId", newSessionId);
