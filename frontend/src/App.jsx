@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { SessionManager } from "./api/SessionManager";
 import { sendFirstRequest, sendNextRequest } from "./api/ApiManager";
+import PdfDownload from "./api/PdfDownload";
 import UserChat from "./components/UserChat";
 import BotChat from "./components/BotChat";
 import MarpitPPT from "./components/MarpitPPT";
 import Button from "./components/Button";
-import html2pdf from "html2pdf.js";
 
 import "./index.css";
 
@@ -66,21 +66,6 @@ function App() {
     }
 
     setChatInput(""); // 입력 필드 초기화
-  };
-
-  const handleDownloadPdf = () => {
-    const element = contentRef.current; // 변환할 HTML 요소 선택
-    console.log(element);
-    alert("하이");
-    html2pdf()
-      .from(element) // PDF로 변환할 요소
-      .set({
-        margin: 1, // 페이지 여백
-        filename: "document.pdf", // 저장할 파일 이름
-        html2canvas: { scale: 2 }, // 캔버스 스케일 설정 (높을수록 품질 향상)
-        jsPDF: { orientation: "portrait" }, // PDF 페이지 방향 설정
-      })
-      .save(); // PDF 저장
   };
 
   return (
@@ -164,7 +149,7 @@ function App() {
                 className="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-blue-500"
               />
               <Button text={"전송"} onClick={handleSendMessage} />
-              <Button text={"pdf변환"} onClick={handleDownloadPdf} />
+              <PdfDownload contentHtml={result} contentRef={contentRef} />
             </div>
           </div>
 
