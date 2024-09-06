@@ -55,7 +55,7 @@ function App() {
         setMessages((prevMessages) => [
           ...prevMessages,
           { type: "user", text: chatInput }, // 사용자 메시지 추가
-          { type: "bot", text: response.result }, // 챗봇 응답 추가
+          { type: "bot", text: "PPT 생성을 완료했습니다." }, // 챗봇 응답 추가
         ]);
         setResult(response.result);
       } else {
