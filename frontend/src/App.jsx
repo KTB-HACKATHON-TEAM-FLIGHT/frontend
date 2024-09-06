@@ -1,122 +1,73 @@
-import "./index.css";
+import React, { useState, useEffect, useRef } from "react";
+import { SessionManager } from "./api/SessionManager";
+import { sendFirstRequest, sendNextRequest } from "./api/ApiManager";
+import UserChat from "./components/UserChat";
+import BotChat from "./components/BotChat";
 import MarpitPPT from "./components/MarpitPPT";
 import Button from "./components/Button";
-import {useRef} from "react";
-import html2pdf from 'html2pdf.js';
+import html2pdf from "html2pdf.js";
+
+import "./index.css";
 
 function App() {
-    const thema = `
-/* @theme my-first-theme */
-
-section {
-  background-color: #123;
-  color: #fff;
-  font-size: 2rem;
-  padding: 2%;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  margin-bottom: 2%;
-}
-
-h1 {
-  color: #8cf;
-}
-`
-    const markdown = `
-**Title Slide**:
-
-- Main Title: 최근 기사 감정분석을 통해 내일의 주가를 예측하는 자동 주식 매매 프로그램
-- Subtitle: 뉴스 감정분석 기반의 혁신적인 주식 거래 알고리즘
-- Presenter's Name: 김철수, 데이터 사이언스 전문가
----
-
-**Contents**:
-
-- Introduction
-- Understanding Sentiment Analysis
-- The Algorithm Behind Stock Predictions
-- Implementation and Backtesting
-- Case Study
-- Results and Insights
-- Future Improvements
-- Q&A
----
-
-**Introduction**:
-
-- Overview of stock market trading
-- Importance of news sentiment in stock movements
-- Objective of the automated trading program
-- put image: stock market overview with upward and downward trends
----
-
-**Understanding Sentiment Analysis**:
-
-- Definition and significance of sentiment analysis
-- Natural Language Processing (NLP) techniques 
-- How sentiment analysis applies to news articles
-- put image: AI analyzing news articles
----
-
-**The Algorithm Behind Stock Predictions**:
-
-- Step-by-step explanation of the prediction algorithm
-- Sentiment score calculation
-- Stock price prediction model
-- put image: flowchart of the prediction algorithm
----
-
-**Implementation and Backtesting**:
-
-- Data collection and preprocessing
-- Backtesting the algorithm with historical data
-- Performance metrics and evaluation
-- put image: historical stock data analysis
-- Random table: 
-  | Date       | Sentiment Score | Predicted Return | Actual Return |
-  |------------|-----------------|------------------|---------------|
-  | 2022-01-01 | 0.75            | 1.2%             | 1.5%          |
-  | 2022-01-02 | -0.40           | -0.8%            | -1.0%         |
----
-
-**Case Study**:
-
-- Analysis of a specific stock using the program
-- Sentiment trends and stock price movements
-- Results and key learnings
-- put image: case study results with stock price graph
----
-
-**Results and Insights**:
-
-- Summary of backtesting results
-- Accuracy and profitability analysis
-- Market implications of the program
-- put image: statistical graphs showing accuracy and profitability
-- Random statistical graph
----
-
-**Future Improvements**:
-
-- Enhancements for better prediction accuracy
-- Integration with real-time trading platforms
-- Potential challenges and solutions
-- put image: future improvements flowchart
----
-
-**Q&A**:
-
-- "Questions and Answers"
-- "Your feedback and questions are welcome"
----
-
-**Thank You**:
-
-- "Thank You for Your Attention"
-- "Contact information and further resources"
-`
-
+    const [sessionId, setSessionId] = useState(null);
+    const [chatInput, setChatInput] = useState("");
+    const [messages, setMessages] = useState([]);
+    const [conversationStarted, setConversationStarted] = useState(false);
+    const [result, setResult] = useState("");
+    
     const contentRef = useRef(); // 변환할 콘텐츠에 대한 참조
+
+    const handleSessionIdReceived = (id) => setSessionId(id);
+    const thema = `
+
+    /* @theme my-first-theme */
+
+    section {
+    background-color: #123;
+    color: #fff;
+    font-size: 2rem;
+    padding: 2%;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 2%;
+    }
+
+    h1 {
+    color: #8cf;
+    }
+    `
+    
+    // 메시지 전송 및 API 호출
+    const handleSendMessage = async () => {
+    if (!sessionId || !chatInput.trim()) return; // 세션 ID 또는 입력 없을 때 실행 안하고
+
+    try {
+        let response;
+        if (!conversationStarted) {
+        response = await sendFirstRequest(sessionId, chatInput); // 첫 대화
+        setConversationStarted(true);
+        } else {
+        response = await sendNextRequest(sessionId, chatInput); // 이후 대화
+        }
+
+        if (response?.result) {
+        setMessages((prevMessages) => [
+            ...prevMessages,
+            { type: "user", text: chatInput }, // 사용자 메시지 추가
+            { type: "bot", text: response.result }, // 챗봇 응답 추가
+        ]);
+        setResult(response.result);
+        } else {
+        console.error("API 응답에서 result가 없습니다.");
+        }
+    } catch (error) {
+        console.error("API 요청 실패:", error);
+    }
+
+    setChatInput(""); // 입력 필드 초기화
+    };
+
 
     const handleDownloadPdf = () => {
         const element = contentRef.current; // 변환할 HTML 요소 선택
@@ -147,6 +98,8 @@ h1 {
                 </nav>
             </header>
 
+            <SessionManager onSessionIdReceived={handleSessionIdReceived}/>
+
             <div id="page-wrapper" className="flex w-screen h-[95vh]">
                 <div id="sidebar-wrapper" className="p-4 bg-stone-900 flex-auto w-20 max-w-[300px] overflow-y-auto">
                     <a href="/" className="flex mb-3 text-white no-underline">
@@ -159,7 +112,7 @@ h1 {
                         </li>
                         <li>
                             <a href="#"
-                               className="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">Dashboard</a>
+                            className="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">Dashboard</a>
                         </li>
                         <li>
                             <a href="#" className="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">Orders</a>
@@ -176,36 +129,28 @@ h1 {
 
                 <div id="page-content-wrapper" className="p-7 flex flex-auto w-80 gap-[1vw]">
                     <div id="chatting-wrapper"
-                         className="flex-auto w-1/3 border border-gray-300 rounded-lg p-4 flex flex-col h-full">
+                        className="flex-auto w-1/3 border border-gray-300 rounded-lg p-4 flex flex-col h-full">
                         <div className="flex-1 overflow-y-auto p-2 space-y-4">
-                            <div className="flex items-start">
-                                <img src="https://via.placeholder.com/40" className="w-10 h-10 rounded-full mr-3"
-                                     alt="User Avatar"/>
-                                <div className="bg-white p-3 rounded-lg shadow-md max-w-xs">
-                                    <p className="text-gray-800">안녕하세요! 어떻게 도와드릴까요?</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-end justify-end">
-                                <div className="bg-blue-500 text-white p-3 rounded-lg shadow-md max-w-xs">
-                                    <p>네, 질문이 있습니다.</p>
-                                </div>
-                            </div>
-
+                            {messages.map((msg, index) => (
+                                msg.type === "user" ? <UserChat key={index} text={msg.text} /> : <BotChat key={index} text={msg.text} />
+                            ))}
                         </div>
-
                         <div className="bg-white p-4 border-t border-gray-300 flex items-center">
-                            <input type="text" placeholder="메시지를 입력하세요..."
-                                   className="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-blue-500"/>
-                            <button className="bg-blue-500 text-white rounded-full p-2 ml-3 hover:bg-blue-700">
-                                전송
-                            </button>
-                            <Button text={"pdf변환"} onClick={handleDownloadPdf}/>
+                            <input
+                                type="text"
+                                value={chatInput}
+                                onChange={(e) => setChatInput(e.target.value)}
+                                placeholder="메시지를 입력하세요..."
+                                className="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-blue-500"
+                            />
+                            <Button text={"전송"} onClick={handleSendMessage} />
+                            <Button text={"pdf변환"} onClick={handleDownloadPdf} />
                         </div>
                     </div>
 
                     <div id="ppt-wrapper" className="w-2/3 flex-auto border border-gray-300 rounded-lg p-4 h-full">
-                        <MarpitPPT text={markdown} thema={thema}/>
+                        {/* API 응답으로 받은 result를 MarpitPPT 컴포넌트로 렌더링하는것. */}
+                        <MarpitPPT text={result} thema={thema} />
                     </div>
                 </div>
             </div>
