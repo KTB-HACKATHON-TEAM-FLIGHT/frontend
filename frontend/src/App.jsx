@@ -11,110 +11,161 @@ function App() {
 section {
   background-color: #123;
   color: #fff;
-  font-size: 2rem;
-  padding: 2%;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  margin-bottom: 2%;
+  font-size: 30px;
+  padding: 40px;
 }
 
 h1 {
   color: #8cf;
 }
 `
-    const markdown = `
-**Title Slide**:
-
-- Main Title: 최근 기사 감정분석을 통해 내일의 주가를 예측하는 자동 주식 매매 프로그램
-- Subtitle: 뉴스 감정분석 기반의 혁신적인 주식 거래 알고리즘
-- Presenter's Name: 김철수, 데이터 사이언스 전문가
----
-
-**Contents**:
-
-- Introduction
-- Understanding Sentiment Analysis
-- The Algorithm Behind Stock Predictions
-- Implementation and Backtesting
-- Case Study
-- Results and Insights
-- Future Improvements
-- Q&A
----
-
-**Introduction**:
-
-- Overview of stock market trading
-- Importance of news sentiment in stock movements
-- Objective of the automated trading program
-- put image: stock market overview with upward and downward trends
----
-
-**Understanding Sentiment Analysis**:
-
-- Definition and significance of sentiment analysis
-- Natural Language Processing (NLP) techniques 
-- How sentiment analysis applies to news articles
-- put image: AI analyzing news articles
----
-
-**The Algorithm Behind Stock Predictions**:
-
-- Step-by-step explanation of the prediction algorithm
-- Sentiment score calculation
-- Stock price prediction model
-- put image: flowchart of the prediction algorithm
----
-
-**Implementation and Backtesting**:
-
-- Data collection and preprocessing
-- Backtesting the algorithm with historical data
-- Performance metrics and evaluation
-- put image: historical stock data analysis
-- Random table: 
-  | Date       | Sentiment Score | Predicted Return | Actual Return |
-  |------------|-----------------|------------------|---------------|
-  | 2022-01-01 | 0.75            | 1.2%             | 1.5%          |
-  | 2022-01-02 | -0.40           | -0.8%            | -1.0%         |
----
-
-**Case Study**:
-
-- Analysis of a specific stock using the program
-- Sentiment trends and stock price movements
-- Results and key learnings
-- put image: case study results with stock price graph
----
-
-**Results and Insights**:
-
-- Summary of backtesting results
-- Accuracy and profitability analysis
-- Market implications of the program
-- put image: statistical graphs showing accuracy and profitability
-- Random statistical graph
----
-
-**Future Improvements**:
-
-- Enhancements for better prediction accuracy
-- Integration with real-time trading platforms
-- Potential challenges and solutions
-- put image: future improvements flowchart
----
-
-**Q&A**:
-
-- "Questions and Answers"
-- "Your feedback and questions are welcome"
----
-
-**Thank You**:
-
-- "Thank You for Your Attention"
-- "Contact information and further resources"
-`
+    const markdown = "<!DOCTYPE html>\n" +
+        "<html lang=\"ko\">\n" +
+        "<head>\n" +
+        "    <meta charset=\"UTF-8\">\n" +
+        "    <title>PowerPoint Presentation</title>\n" +
+        "    <style>\n" +
+        "        body {\n" +
+        "            font-family: Arial, sans-serif;\n" +
+        "            background-color: #f7f7f7;\n" +
+        "            margin: 0;\n" +
+        "            padding: 0;\n" +
+        "        }\n" +
+        "        section {\n" +
+        "            padding: 60px;\n" +
+        "            text-align: center;\n" +
+        "            page-break-after: always;\n" +
+        "        }\n" +
+        "        h1 {\n" +
+        "            font-size: 36px;\n" +
+        "            font-weight: bold;\n" +
+        "        }\n" +
+        "        h2 {\n" +
+        "            font-size: 28px;\n" +
+        "            font-weight: bold;\n" +
+        "        }\n" +
+        "        h3 {\n" +
+        "            font-size: 24px;\n" +
+        "            font-weight: bold;\n" +
+        "        }\n" +
+        "        ul, ol {\n" +
+        "            text-align: left;\n" +
+        "            margin: 20px auto;\n" +
+        "            max-width: 800px;\n" +
+        "            font-size: 18px;\n" +
+        "        }\n" +
+        "        img {\n" +
+        "            max-width: 50%;\n" +
+        "            max-height: 300px;\n" +
+        "            display: block;\n" +
+        "            margin: 20px auto;\n" +
+        "            border-radius: 10px;\n" +
+        "        }\n" +
+        "        .divider {\n" +
+        "            margin: 40px 0;\n" +
+        "            border: 0;\n" +
+        "            border-top: 2px solid #ddd;\n" +
+        "        }\n" +
+        "    </style>\n" +
+        "</head>\n" +
+        "<body>\n" +
+        "\n" +
+        "<section>\n" +
+        "    <h1>최근 기사 감정분석을 통해 내일의 주가를 예측하는<br>자동 주식 매매 프로그램</h1>\n" +
+        "    <h2>AI 기반의 혁신적인 주식 매매 솔루션</h2>\n" +
+        "    <h3>발표자: 홍길동</h3>\n" +
+        "    <img src=\"https://i-invdn-com.investing.com/redesign/images/seo/investing_300X300.png\" alt=\"Investment\">\n" +
+        "</section>\n" +
+        "\n" +
+        "<hr class=\"divider\">\n" +
+        "\n" +
+        "<section>\n" +
+        "    <h2>Contents</h2>\n" +
+        "    <ol>\n" +
+        "        <li>프로젝트 개요</li>\n" +
+        "        <li>기사 감정분석의 중요성</li>\n" +
+        "        <li>기술적 구현 방법</li>\n" +
+        "        <li>실제 주가 예측 결과</li>\n" +
+        "        <li>향후 발전 가능성 및 응용 분야</li>\n" +
+        "    </ol>\n" +
+        "</section>\n" +
+        "\n" +
+        "<hr class=\"divider\">\n" +
+        "\n" +
+        "<section>\n" +
+        "    <h2>프로젝트 개요</h2>\n" +
+        "    <ul>\n" +
+        "        <li>자동 주식 매매 프로그램의 필요성 논의</li>\n" +
+        "        <li>기사 감정분석을 통한 예측 모델 설명</li>\n" +
+        "        <li>프로그램의 주요 기능 및 특징 소개</li>\n" +
+        "    </ul>\n" +
+        "    <img src=\"https://storage.googleapis.com/cr-resource/image/d8749e22f08e5d90f3fc4264f2505e49/daehanjuga/650/480388f85d725e4bdedfecff2602f0b6.jpg?_1725115782\" alt=\"Stock Analysis\">\n" +
+        "</section>\n" +
+        "\n" +
+        "<hr class=\"divider\">\n" +
+        "\n" +
+        "<section>\n" +
+        "    <h2>기사 감정분석의 중요성</h2>\n" +
+        "    <ul>\n" +
+        "        <li>감정분석이란 무엇인가?</li>\n" +
+        "        <li>주가 예측에서 감정분석의 역할</li>\n" +
+        "        <li>데이터 수집 및 전처리 방법</li>\n" +
+        "    </ul>\n" +
+        "    <img src=\"https://m.daraewineshop.co.kr/web/mobile/newDesign/127688111356e622d3aa4cc.jpg\" alt=\"News Sentiment\">\n" +
+        "</section>\n" +
+        "\n" +
+        "<hr class=\"divider\">\n" +
+        "\n" +
+        "<section>\n" +
+        "    <h2>기술적 구현 방법</h2>\n" +
+        "    <ul>\n" +
+        "        <li>감정분석을 위한 알고리즘 설명</li>\n" +
+        "        <li>데이터 분석 및 모델 학습 과정</li>\n" +
+        "        <li>주가 예측을 위한 모델 통합</li>\n" +
+        "    </ul>\n" +
+        "    <img src=\"https://overseas.mofa.go.kr/common-embd/images/ga-ko/main_visual_notext.jpg\" alt=\"Technical Implementation\">\n" +
+        "</section>\n" +
+        "\n" +
+        "<hr class=\"divider\">\n" +
+        "\n" +
+        "<section>\n" +
+        "    <h2>실제 주가 예측 결과</h2>\n" +
+        "    <ul>\n" +
+        "        <li>실험 데이터 및 결과 분석</li>\n" +
+        "        <li>예측 모델의 정확도 장단점 평가</li>\n" +
+        "        <li>실제 시장에서의 활용 사례</li>\n" +
+        "    </ul>\n" +
+        "    <img src=\"https://data.krx.co.kr/templets/mdc/img/mainSurbeyMoBanner_20240219.png\" alt=\"Stock Prediction Results\">\n" +
+        "</section>\n" +
+        "\n" +
+        "<hr class=\"divider\">\n" +
+        "\n" +
+        "<section>\n" +
+        "    <h2>향후 발전 가능성 및 응용 분야</h2>\n" +
+        "    <ul>\n" +
+        "        <li>프로그램의 개선 및 확장 가능성</li>\n" +
+        "        <li>다양한 응용 분야 제시</li>\n" +
+        "        <li>미래 전망 및 연구 방향</li>\n" +
+        "    </ul>\n" +
+        "    <img src=\"https://ssl.gstatic.com/finance/favicon/finance_770x402.png\" alt=\"Future Prospects\">\n" +
+        "</section>\n" +
+        "\n" +
+        "<hr class=\"divider\">\n" +
+        "\n" +
+        "<section>\n" +
+        "    <h2>Q&A</h2>\n" +
+        "    <p>질문이나 피드백을 환영합니다!</p>\n" +
+        "</section>\n" +
+        "\n" +
+        "<hr class=\"divider\">\n" +
+        "\n" +
+        "<section>\n" +
+        "    <h2>Thank You</h2>\n" +
+        "    <p>관심을 가져주셔서 감사합니다!</p>\n" +
+        "</section>\n" +
+        "\n" +
+        "</body>\n" +
+        "</html>"
 
     const contentRef = useRef(); // 변환할 콘텐츠에 대한 참조
 
