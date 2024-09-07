@@ -6,6 +6,7 @@ const overrideCss = `
         width: 100%;
         aspect-ratio: 16 / 9;
         margin-bottom: 2%;
+        page-break-after: always;
     }
     section {
         box-sizing: border-box;
@@ -19,10 +20,9 @@ const overrideCss = `
     }
     
     
-`
+`;
 
 export default function MarpitPPT({ text, thema }) {
-
   return (
     <div className="overflow-y-auto h-full">
       <style>{overrideCss}</style>
