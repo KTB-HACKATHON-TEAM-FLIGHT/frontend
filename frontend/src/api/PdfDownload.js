@@ -7,15 +7,20 @@ const PdfDownload = ({ contentHtml, contentRef }) => {
       // POST 요청으로 HTML을 서버에 전송하여 PDF로 변환
       const response = await axios.post(
         "https://api.chatppt.site/api/posts/pdf",
+        contentHtml,
         {
-          html: contentHtml, // 마크다운 렌더링된 HTML
+          headers: {
+            "Content-Type": "text/html", // 요청 헤더에 Content-Type을 text/html로 설정
+          },
+          responseType: "blob", // Blob으로 응답 받기
         }
       );
 
       if (response.status === 200) {
-        // 서버에서 반환된 PDF 파일 다운로드 처리
+        // 서버에서 반환된 PDF 파일을 Blob으로 처리하여 다운로드
+        const pdfBlob = new Blob([response.data], { type: "application/pdf" });
         const link = document.createElement("a");
-        link.href = response.data.pdfUrl; // 서버에서 반환된 PDF URL
+        link.href = window.URL.createObjectURL(pdfBlob);
         link.setAttribute("download", "document.pdf");
         document.body.appendChild(link);
         link.click();
